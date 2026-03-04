@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+    id 'com.gradleup.shadow' version '9.3.1' apply false
+}
+
+// Common configuration for all subprojects
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'com.gradleup.shadow'
+
+    group = 'win.dougmination'
+
+    java {
+        toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    }
+
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'papermc'
+            url = 'https://repo.papermc.io/repository/maven-public/'
+        }
+        maven {
+            name = 'jitpack'
+            url = 'https://jitpack.io'
+        }
+        maven {
+            name = 'codemc-snapshots'
+            url = 'https://repo.codemc.io/repository/maven-snapshots/'
+        }
+    }
+
+    dependencies {
+        compileOnly 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
+    }
+
+    shadowJar {
+        archiveClassifier.set('')
+    }
+
+    tasks.build {
+        dependsOn shadowJar
+    }
+
+    // Copy all built jars to a central output directory
+    tasks.register('copyJar', Copy) {
+        dependsOn shadowJar
+        from shadowJar.archiveFile
+        into "${rootProject.buildDir}/libs"
+    }
+
+    build.finalizedBy copyJar
+}
+
+// Task to build all plugins in correct order
+tasks.register('buildAll') {
+    dependsOn subprojects.collect { it.tasks.named('build') }
+
+    doLast {
+        println "All plugins built! JARs available in: ${buildDir}/libs"
+    }
+}

@@ -1,0 +1,7 @@
+rootProject.name = 'Doughmination'
+
+// Include all plugin subprojects
+include 'lobby'
+
+// Set project directories to point to the actual locations
+project(':lobby').projectDir = file('plugins/lobby')

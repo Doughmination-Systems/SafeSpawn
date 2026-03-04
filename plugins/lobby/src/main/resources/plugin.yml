@@ -1,0 +1,10 @@
+# Copyright (c) 2026 Clove Twilight
+# Licensed under the ESAL-1.3 License
+
+name: SafeSpawnLobby
+main: win.doughmination.safespawn.lobby.Main
+version: 3.0.0
+api-version: '1.21.11'
+description: Lobby plugin for the Safe Spawn Server
+author: Doughmination
+website: https://modding.dougmination.win/

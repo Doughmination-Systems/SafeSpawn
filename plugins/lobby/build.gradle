@@ -1,0 +1,16 @@
+// Lobby Plugin
+def versionFile = file('VERSION')
+if (versionFile.exists()) {
+    version = versionFile.text.trim()
+} else {
+    version = '1.0.0'  // fallback
+}
+description = "Lobby plugin for the Safe Spawn Server"
+
+dependencies {
+ // None needed
+}
+
+shadowJar {
+    archiveBaseName.set('SafeSpawnLobby')
+}
