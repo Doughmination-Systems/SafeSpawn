@@ -3,7 +3,8 @@
 
 name: SafeSpawnLobby
 main: win.doughmination.safespawn.lobby.Main
-version: 3.0.0
+depend: []
+version: 1.0.0
 api-version: '1.21.11'
 description: Lobby plugin for the Safe Spawn Server
 author: Doughmination

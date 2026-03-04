@@ -1,0 +1,8 @@
+{
+  "id": "safespawnproxy",
+  "name": "SafeSpawnProxy",
+  "version": "1.0.0",
+  "description": "Proxy plugin for the Safe Spawn Server",
+  "authors": ["Doughmination"],
+  "main": "win.doughmination.safespawn.proxy.Main"
+}

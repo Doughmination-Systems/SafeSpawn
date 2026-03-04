@@ -1,0 +1,19 @@
+// Playtime Plugin
+
+version = '1.0.0'
+description = "Playtime plugin for the Safe Spawn Server"
+
+dependencies {
+    implementation 'org.postgresql:postgresql:42.7.3'
+    implementation 'com.zaxxer:HikariCP:5.1.0'
+    compileOnly 'me.clip:placeholderapi:2.11.6'
+}
+
+shadowJar {
+    archiveBaseName.set('SafeSpawnPlaytime')
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

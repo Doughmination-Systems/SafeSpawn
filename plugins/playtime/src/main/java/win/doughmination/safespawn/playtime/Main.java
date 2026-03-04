@@ -1,0 +1,66 @@
+// Copyright (c) 2026 Clove Twilight
+// Licensed under the ESAL-1.3 License
+
+package win.doughmination.safespawn.playtime;
+
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
+import win.doughmination.safespawn.playtime.database.DatabaseManager;
+import win.doughmination.safespawn.playtime.expansion.PlaytimeExpansion;
+import win.doughmination.safespawn.playtime.listeners.PlaytimeListener;
+
+import java.sql.SQLException;
+
+public class Main extends JavaPlugin {
+
+    public static final String CHANNEL = "safespawn:playtime";
+
+    private DatabaseManager databaseManager;
+    private PlaytimeExpansion playtimeExpansion;
+
+    @Override
+    public void onEnable() {
+        saveDefaultConfig();
+        FileConfiguration config = getConfig();
+
+        String dbHost     = config.getString("database.host",     "localhost");
+        int    dbPort     = config.getInt(   "database.port",     5432);
+        String dbName     = config.getString("database.name",     "minecraft");
+        String dbUser     = config.getString("database.user",     "postgres");
+        String dbPassword = config.getString("database.password", "password");
+
+        databaseManager = new DatabaseManager(this);
+        try {
+            databaseManager.connect(dbHost, dbPort, dbName, dbUser, dbPassword);
+        } catch (SQLException e) {
+            getLogger().severe("Failed to connect to PostgreSQL! Disabling plugin.");
+            getLogger().severe(e.getMessage());
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
+        getServer().getMessenger().registerOutgoingPluginChannel(this, CHANNEL);
+
+        getServer().getPluginManager().registerEvents(new PlaytimeListener(this), this);
+
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            playtimeExpansion = new PlaytimeExpansion(this);
+            playtimeExpansion.register();
+            getLogger().info("Hooked into PlaceholderAPI — %safespawn_playtime_total% is ready!");
+        } else {
+            getLogger().warning("PlaceholderAPI not found! Placeholder will not be available.");
+        }
+
+        getLogger().info("SafeSpawnPlaytime enabled!");
+    }
+
+    @Override
+    public void onDisable() {
+        getServer().getMessenger().unregisterOutgoingPluginChannel(this);
+        if (databaseManager != null) databaseManager.disconnect();
+        getLogger().info("SafeSpawnPlaytime disabled.");
+    }
+
+    public DatabaseManager getDatabaseManager()     { return databaseManager; }
+    public PlaytimeExpansion getPlaytimeExpansion() { return playtimeExpansion; }
+}

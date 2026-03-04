@@ -1,0 +1,12 @@
+# Copyright (c) 2026 Clove Twilight
+# Licensed under the ESAL-1.3 License
+
+name: SafeSpawnPlaytime
+main: win.doughmination.safespawn.playtime.Main
+version: 1.0.0
+api-version: '1.21'
+description: Playtime plugin for the Safe Spawn Server
+author: Doughmination
+website: https://modding.dougmination.win/
+softdepend:
+  - PlaceholderAPI

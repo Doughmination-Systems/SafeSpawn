@@ -1,0 +1,17 @@
+// Proxy Plugin (Velocity)
+
+version = '1.0.0'
+description = "Proxy plugin for the Safe Spawn Server"
+
+dependencies {
+    implementation 'org.postgresql:postgresql:42.7.3'
+}
+
+shadowJar {
+    archiveBaseName.set('SafeSpawnProxy')
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

@@ -2,6 +2,10 @@ rootProject.name = 'Doughmination'
 
 // Include all plugin subprojects
 include 'lobby'
+include 'playtime'
+include 'proxy'
 
 // Set project directories to point to the actual locations
 project(':lobby').projectDir = file('plugins/lobby')
+project(':playtime').projectDir = file('plugins/playtime')
+project(':proxy').projectDir = file('plugins/proxy')
