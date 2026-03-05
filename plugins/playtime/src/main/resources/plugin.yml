@@ -16,8 +16,15 @@ commands:
     description: SafeSpawn admin commands
     usage: /safespawn reload
     permission: safespawn.admin
+  lobby:
+    description: TP to lobby
+    usage: /lobby
+    permission: safespawn.lobby
 
 permissions:
   safespawn.admin:
     default: op
     description: SafeSpawn admin commands
+  safespawn.lobby:
+    default: true
+    description: Lobby Command

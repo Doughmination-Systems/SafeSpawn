@@ -23,6 +23,7 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         getCommand("safespawn").setExecutor(new ReloadCommand(this));
+        getCommand("lobby").setExecutor(new LobbyCommand(this));
         saveDefaultConfig();
         FileConfiguration config = getConfig();
 
@@ -43,6 +44,7 @@ public class Main extends JavaPlugin {
         }
 
         getServer().getMessenger().registerOutgoingPluginChannel(this, CHANNEL);
+        getServer().getMessenger().registerOutgoingPluginChannel(this, LobbyCommand.LOBBY_CHANNEL);
 
         getServer().getPluginManager().registerEvents(new PlaytimeListener(this), this);
 
@@ -63,7 +65,8 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        getServer().getMessenger().unregisterOutgoingPluginChannel(this);
+        getServer().getMessenger().unregisterOutgoingPluginChannel(this, CHANNEL);
+        getServer().getMessenger().unregisterOutgoingPluginChannel(this, LobbyCommand.LOBBY_CHANNEL);
         if (databaseManager != null) databaseManager.disconnect();
         getLogger().info("SafeSpawnPlaytime disabled.");
     }

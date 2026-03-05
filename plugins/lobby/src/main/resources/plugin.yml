@@ -9,3 +9,8 @@ api-version: '1.21.11'
 description: Lobby plugin for the Safe Spawn Server
 author: Doughmination
 website: https://modding.dougmination.win/
+
+permissions:
+  lobby.flight:
+    description: Allow flight in the lobby
+    default: op

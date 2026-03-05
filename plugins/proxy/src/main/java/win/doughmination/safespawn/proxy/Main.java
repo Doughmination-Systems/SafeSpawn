@@ -32,7 +32,8 @@ import java.util.Properties;
 )
 public class Main {
 
-    public static final String CHANNEL = "safespawn:playtime";
+    public static final String CHANNEL       = "safespawn:playtime";
+    public static final String LOBBY_CHANNEL = "safespawn:lobby";
 
     private final ProxyServer server;
     private final Logger logger;
@@ -68,6 +69,9 @@ public class Main {
 
         server.getChannelRegistrar().register(MinecraftChannelIdentifier.from(CHANNEL));
         server.getEventManager().register(this, new PluginMessageListener(this));
+
+        server.getChannelRegistrar().register(MinecraftChannelIdentifier.from(LOBBY_CHANNEL));
+        server.getEventManager().register(this, new LobbyListener(this));
 
         server.getChannelRegistrar().register(MinecraftChannelIdentifier.from(COUNT_CHANNEL));
         server.getEventManager().register(this, new ServerCountListener(this));

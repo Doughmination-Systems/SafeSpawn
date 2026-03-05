@@ -7,7 +7,7 @@ spawn:
   x: 0.5
   y: 64.0
   z: 0.5
-  yaw: 0.0
+  yaw: 90.0
   pitch: 0.0
 
 # Void rescue — teleport players back to spawn if they fall below this Y level
