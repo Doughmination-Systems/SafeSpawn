@@ -1,6 +1,3 @@
-// Lobby Plugin
-
-version = '1.0.0'
 description = "Lobby plugin for the Safe Spawn Server"
 
 dependencies {

@@ -1,6 +1,3 @@
-// Proxy Plugin (Velocity)
-
-version = '1.0.0'
 description = "Proxy plugin for the Safe Spawn Server"
 
 dependencies {

@@ -1,3 +1,6 @@
+// Copyright (c) 2026 Clove Twilight
+// Licensed under the ESAL-1.3 License
+
 package win.doughmination.safespawn.playtime.expansion;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
@@ -9,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import win.doughmination.safespawn.playtime.Main;
 
 import java.io.*;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -17,14 +21,25 @@ public class NetworkExpansion extends PlaceholderExpansion implements PluginMess
     private static final String CHANNEL = "safespawn:servercount";
     private final Main plugin;
     private final Map<String, Integer> cache = new ConcurrentHashMap<>();
+    private int taskId = -1;
 
     public NetworkExpansion(Main plugin) {
         this.plugin = plugin;
         Bukkit.getMessenger().registerOutgoingPluginChannel(plugin, CHANNEL);
         Bukkit.getMessenger().registerIncomingPluginChannel(plugin, CHANNEL, this);
+        reloadServers();
+    }
 
-        // Refresh survival count every 10 seconds
-        Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> requestCount("survival"), 20L, 20L * 10);
+    public void reloadServers() {
+        if (taskId != -1) {
+            Bukkit.getScheduler().cancelTask(taskId);
+            taskId = -1;
+        }
+
+        List<String> servers = plugin.getConfig().getStringList("network.servers");
+        taskId = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () ->
+                        servers.forEach(this::requestCount),
+                20L, 20L * 10).getTaskId();
     }
 
     @Override public @NotNull String getIdentifier() { return "network"; }
@@ -34,7 +49,9 @@ public class NetworkExpansion extends PlaceholderExpansion implements PluginMess
 
     @Override
     public String onRequest(OfflinePlayer player, @NotNull String params) {
-        // %network_online_survival%
+        if (params.equals("online_total")) {
+            return String.valueOf(cache.values().stream().mapToInt(Integer::intValue).sum());
+        }
         if (params.startsWith("online_")) {
             String server = params.substring(7);
             return String.valueOf(cache.getOrDefault(server, 0));
@@ -57,7 +74,7 @@ public class NetworkExpansion extends PlaceholderExpansion implements PluginMess
 
     private void requestCount(String serverName) {
         Player any = Bukkit.getOnlinePlayers().stream().findFirst().orElse(null);
-        if (any == null) return; // need a player online to send plugin messages
+        if (any == null) return;
         try {
             ByteArrayOutputStream buf = new ByteArrayOutputStream();
             new DataOutputStream(buf).writeUTF(serverName);

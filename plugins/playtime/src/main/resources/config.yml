@@ -8,3 +8,8 @@ database:
   name: minecraft
   user: postgres
   password: password
+
+network:
+  servers:
+    - survival
+    - lobby

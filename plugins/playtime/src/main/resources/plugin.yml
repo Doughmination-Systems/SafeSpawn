@@ -10,3 +10,14 @@ author: Doughmination
 website: https://modding.dougmination.win/
 softdepend:
   - PlaceholderAPI
+
+commands:
+  safespawn:
+    description: SafeSpawn admin commands
+    usage: /safespawn reload
+    permission: safespawn.admin
+
+permissions:
+  safespawn.admin:
+    default: op
+    description: SafeSpawn admin commands

@@ -5,9 +5,10 @@ package win.doughmination.safespawn.playtime;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import win.doughmination.safespawn.playtime.database.DatabaseManager;
+import win.doughmination.safespawn.playtime.commands.*;
+import win.doughmination.safespawn.playtime.database.*;
 import win.doughmination.safespawn.playtime.expansion.*;
-import win.doughmination.safespawn.playtime.listeners.PlaytimeListener;
+import win.doughmination.safespawn.playtime.listeners.*;
 
 import java.sql.SQLException;
 
@@ -21,6 +22,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        getCommand("safespawn").setExecutor(new ReloadCommand(this));
         saveDefaultConfig();
         FileConfiguration config = getConfig();
 
