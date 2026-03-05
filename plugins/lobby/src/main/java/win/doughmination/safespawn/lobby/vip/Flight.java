@@ -55,11 +55,9 @@ public class Flight implements Listener {
 
         if (inZone && !player.getAllowFlight()) {
             player.setAllowFlight(true);
-            player.sendMessage("§aFlight enabled, enjoy the skies!");
         } else if (!inZone && player.getAllowFlight()) {
             player.setAllowFlight(false);
             player.setFlying(false);
-            player.sendMessage("§cYou left the flight zone flight disabled.");
         }
     }
 

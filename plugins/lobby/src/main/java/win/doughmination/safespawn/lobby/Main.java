@@ -44,7 +44,7 @@ public class Main extends JavaPlugin {
                         || loc.getZ() < -110 || loc.getZ() > 120;
                 if (outOfBounds) {
                     player.teleport(spawn);
-                    player.sendMessage("§cYou left the lobby area! Teleporting you back to spawn.");
+                    player.sendMessage("You left the lobby area! Teleporting you back to spawn.");
                 }
             }
         }, 0L, 10L);

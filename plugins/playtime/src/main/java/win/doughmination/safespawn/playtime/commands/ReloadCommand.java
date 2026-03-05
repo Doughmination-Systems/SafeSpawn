@@ -17,7 +17,7 @@ public class ReloadCommand implements CommandExecutor {
                              @NotNull String label, @NotNull String[] args) {
 
         if (!sender.hasPermission("safespawn.admin")) {
-            sender.sendMessage("§cYou don't have permission to do that.");
+            sender.sendMessage("You don't have permission to do that.");
             return true;
         }
 
@@ -28,7 +28,7 @@ public class ReloadCommand implements CommandExecutor {
 
         plugin.reloadConfig();
         plugin.getNetworkExpansion().reloadServers();
-        sender.sendMessage("§aSafeSpawn config reloaded!");
+        sender.sendMessage("SafeSpawn config reloaded!");
         return true;
     }
 }

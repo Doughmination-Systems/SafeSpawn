@@ -28,14 +28,14 @@ public class LobbyCommand implements SimpleCommand {
         Optional<RegisteredServer> lobby = plugin.getServer().getServer("lobby");
 
         if (lobby.isEmpty()) {
-            player.sendPlainMessage("§cLobby server not found!");
+            player.sendPlainMessage("Lobby server not found!");
             return;
         }
 
         // If already on lobby, tell them
         player.getCurrentServer().ifPresent(conn -> {
             if (conn.getServerInfo().getName().equalsIgnoreCase("lobby")) {
-                player.sendPlainMessage("§cYou are already connected to the lobby!");
+                return;
             }
         });
 
