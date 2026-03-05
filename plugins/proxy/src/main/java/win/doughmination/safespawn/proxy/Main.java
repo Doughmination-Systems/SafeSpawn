@@ -14,6 +14,7 @@ import com.velocitypowered.api.proxy.messages.MinecraftChannelIdentifier;
 import org.slf4j.Logger;
 import win.doughmination.safespawn.proxy.database.*;
 import win.doughmination.safespawn.proxy.listeners.*;
+import win.doughmination.safespawn.proxy.commands.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,11 +68,13 @@ public class Main {
             return;
         }
 
+        server.getCommandManager().register(
+                server.getCommandManager().metaBuilder("lobby").plugin(this).build(),
+                new LobbyCommand(this)
+        );
+
         server.getChannelRegistrar().register(MinecraftChannelIdentifier.from(CHANNEL));
         server.getEventManager().register(this, new PluginMessageListener(this));
-
-        server.getChannelRegistrar().register(MinecraftChannelIdentifier.from(LOBBY_CHANNEL));
-        server.getEventManager().register(this, new LobbyListener(this));
 
         server.getChannelRegistrar().register(MinecraftChannelIdentifier.from(COUNT_CHANNEL));
         server.getEventManager().register(this, new ServerCountListener(this));
