@@ -6,7 +6,7 @@ package win.doughmination.safespawn.playtime;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import win.doughmination.safespawn.playtime.database.DatabaseManager;
-import win.doughmination.safespawn.playtime.expansion.PlaytimeExpansion;
+import win.doughmination.safespawn.playtime.expansion.*;
 import win.doughmination.safespawn.playtime.listeners.PlaytimeListener;
 
 import java.sql.SQLException;
@@ -17,6 +17,7 @@ public class Main extends JavaPlugin {
 
     private DatabaseManager databaseManager;
     private PlaytimeExpansion playtimeExpansion;
+    private NetworkExpansion networkExpansion;
 
     @Override
     public void onEnable() {
@@ -46,9 +47,13 @@ public class Main extends JavaPlugin {
         if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
             playtimeExpansion = new PlaytimeExpansion(this);
             playtimeExpansion.register();
-            getLogger().info("Hooked into PlaceholderAPI — %safespawn_playtime_total% is ready!");
+            getLogger().info("Hooked into PlaceholderAPI — %safespawn_top_1% and %safespawn_my_rank% are ready!");
+
+            networkExpansion = new NetworkExpansion(this);
+            networkExpansion.register();
+            getLogger().info("Hooked into PlaceholderAPI — %network_online_survival% is ready!");
         } else {
-            getLogger().warning("PlaceholderAPI not found! Placeholder will not be available.");
+            getLogger().warning("PlaceholderAPI not found! Placeholders will not be available.");
         }
 
         getLogger().info("SafeSpawnPlaytime enabled!");
@@ -63,4 +68,5 @@ public class Main extends JavaPlugin {
 
     public DatabaseManager getDatabaseManager()     { return databaseManager; }
     public PlaytimeExpansion getPlaytimeExpansion() { return playtimeExpansion; }
+    public NetworkExpansion getNetworkExpansion()   { return networkExpansion; }
 }

@@ -12,8 +12,8 @@ import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.messages.MinecraftChannelIdentifier;
 import org.slf4j.Logger;
-import win.doughmination.safespawn.proxy.database.DatabaseManager;
-import win.doughmination.safespawn.proxy.listeners.PluginMessageListener;
+import win.doughmination.safespawn.proxy.database.*;
+import win.doughmination.safespawn.proxy.listeners.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,6 +37,7 @@ public class Main {
     private final ProxyServer server;
     private final Logger logger;
     private final Path dataDirectory;
+    public static final String COUNT_CHANNEL = "safespawn:servercount";
 
     private DatabaseManager databaseManager;
 
@@ -67,6 +68,9 @@ public class Main {
 
         server.getChannelRegistrar().register(MinecraftChannelIdentifier.from(CHANNEL));
         server.getEventManager().register(this, new PluginMessageListener(this));
+
+        server.getChannelRegistrar().register(MinecraftChannelIdentifier.from(COUNT_CHANNEL));
+        server.getEventManager().register(this, new ServerCountListener(this));
 
         logger.info("SafeSpawnProxy enabled!");
     }
