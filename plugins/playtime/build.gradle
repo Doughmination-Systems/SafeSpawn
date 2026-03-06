@@ -1,9 +1,9 @@
 description = "Playtime plugin for the Safe Spawn Server"
 
 dependencies {
-    implementation 'org.postgresql:postgresql:42.7.3'
-    implementation 'com.zaxxer:HikariCP:5.1.0'
-    compileOnly 'me.clip:placeholderapi:2.11.6'
+    implementation 'org.postgresql:postgresql:42.7.10'
+    implementation 'com.zaxxer:HikariCP:7.0.2'
+    compileOnly 'me.clip:placeholderapi:2.12.2'
 }
 
 shadowJar {
