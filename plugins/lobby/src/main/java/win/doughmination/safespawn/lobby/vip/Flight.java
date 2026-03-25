@@ -22,7 +22,7 @@ public class Flight implements Listener {
     private static final double MIN_Z = -110;
     private static final double MAX_Z = 120;
 
-    private static final String FLIGHT_PERMISSION = "lobby.flight";
+    private static final String FLIGHT_PERMISSION = "safespawnlobby.flight";
 
     private final Main plugin;
 
