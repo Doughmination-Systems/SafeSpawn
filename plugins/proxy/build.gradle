@@ -1,7 +1,7 @@
 description = "Proxy plugin for the Safe Spawn Server"
 
 dependencies {
-    implementation 'org.postgresql:postgresql:42.7.3'
+    implementation 'org.postgresql:postgresql:42.7.10'
 }
 
 shadowJar {
